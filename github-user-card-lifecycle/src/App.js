@@ -74,13 +74,8 @@ class App extends Component {
             <Card.Img variant="top" src={data.avatar_url} />
             <Card.Body>
               <Card.Title>{data.login}</Card.Title>
-              <Card.Text>Bio: {data.bio}</Card.Text>
             </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroupItem>Location: {data.location}</ListGroupItem>
-              <ListGroupItem>Created: {data.created_at}</ListGroupItem>
-              <ListGroupItem>Followers: {data.followers}</ListGroupItem>
-            </ListGroup>
+
             <Card.Body>
               <Card.Link href={data.html_url}>Card Link</Card.Link>
               <Card.Link href={data.organizations_url}>Organizations</Card.Link>
