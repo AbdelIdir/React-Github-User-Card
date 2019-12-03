@@ -10,7 +10,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      users: {}
+      users: {},
+      followers: []
     };
   }
 
@@ -18,9 +19,22 @@ class App extends Component {
     axios
       .get("https://api.github.com/users/AbdelIdir")
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({
           users: response.data
+        });
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
+
+    axios
+      .get("https://api.github.com/users/AbdelIdir/followers")
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          followers: response.data
         });
       })
 
@@ -54,6 +68,25 @@ class App extends Component {
             </Card.Link>
           </Card.Body>
         </Card>
+
+        {this.state.followers.map((data, id) => (
+          <Card style={{ width: "18rem", margin: "40px" }} key={id}>
+            <Card.Img variant="top" src={data.avatar_url} />
+            <Card.Body>
+              <Card.Title>{data.login}</Card.Title>
+              <Card.Text>Bio: {data.bio}</Card.Text>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>Location: {data.location}</ListGroupItem>
+              <ListGroupItem>Created: {data.created_at}</ListGroupItem>
+              <ListGroupItem>Followers: {data.followers}</ListGroupItem>
+            </ListGroup>
+            <Card.Body>
+              <Card.Link href={data.html_url}>Card Link</Card.Link>
+              <Card.Link href={data.organizations_url}>Organizations</Card.Link>
+            </Card.Body>
+          </Card>
+        ))}
       </div>
     );
   }
